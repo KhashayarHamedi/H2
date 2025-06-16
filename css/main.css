@@ -2128,3 +2128,315 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 2.2rem !important;
   }
 }
+/* H2+ HERO IMPROVEMENTS - ADD TO css/main.css (REPLACE EXISTING HERO STYLES) */
+
+/* Remove Floating Elements */
+.floating-elements {
+    display: none !important;
+}
+
+.float-card {
+    display: none !important;
+}
+
+/* Enhanced Hero Title - Simple and Bold */
+.hero-title {
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: var(--space-2xl);
+    font-family: var(--font-display);
+    text-align: center;
+}
+
+.title-line {
+    display: block;
+    position: relative;
+    margin-bottom: 0.2em;
+}
+
+.title-line:nth-child(1) {
+    color: var(--platinum);
+    animation: titleSlideIn 1s ease 0.2s both;
+    font-weight: 800;
+}
+
+.title-line.highlight {
+    background: linear-gradient(135deg, var(--h2-electric), var(--h2-quantum), var(--h2-neural));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 300% 300%;
+    animation: titleSlideIn 1s ease 0.4s both, gradientShift 4s ease-in-out infinite;
+    font-weight: 900;
+    position: relative;
+}
+
+.title-line:nth-child(3) {
+    color: var(--platinum);
+    animation: titleSlideIn 1s ease 0.6s both;
+    font-weight: 800;
+}
+
+/* Updated Hero Stats */
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 1s ease 1s both;
+}
+
+.stat-card {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(0, 217, 255, 0.05);
+    border: 1px solid rgba(0, 217, 255, 0.1);
+    border-radius: var(--radius-xl);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0, 217, 255, 0.3);
+    box-shadow: var(--shadow-neon);
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 900;
+    font-family: var(--font-display);
+    color: var(--h2-electric);
+    margin-bottom: var(--space-sm);
+    position: relative;
+}
+
+.stat-number::before {
+    content: '+';
+    position: absolute;
+    left: -0.5em;
+    top: 0;
+    font-size: 0.7em;
+    opacity: 0.8;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: var(--titanium);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ULTIMATE REQUEST CONSULTATION BOX */
+.consultation-box {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 350px;
+    padding: 2rem;
+    background: linear-gradient(135deg, 
+        rgba(0, 217, 255, 0.1) 0%, 
+        rgba(124, 58, 237, 0.1) 50%, 
+        rgba(16, 185, 129, 0.1) 100%);
+    border: 2px solid transparent;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    animation: consultationFloat 4s ease-in-out infinite;
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.consultation-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--h2-electric), var(--h2-quantum), var(--h2-neural));
+    border-radius: 20px;
+    padding: 2px;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: subtract;
+    animation: borderGlow 3s linear infinite;
+}
+
+@keyframes consultationFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.02); }
+}
+
+@keyframes borderGlow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.consultation-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.consultation-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+}
+
+.consultation-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--h2-electric);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.consultation-subtitle {
+    font-size: 0.9rem;
+    color: var(--titanium);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.consultation-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--h2-neural), var(--h2-electric));
+    color: var(--dark-primary);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: none;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+    animation: ctaPulse 3s ease-in-out infinite;
+}
+
+@keyframes ctaPulse {
+    0%, 100% { box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); }
+    50% { box-shadow: 0 20px 50px rgba(16, 185, 129, 0.7); }
+}
+
+.consultation-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.8);
+}
+
+.consultation-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.consultation-cta:hover::before {
+    left: 100%;
+}
+
+.consultation-features {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--h2-electric);
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.feature-icon {
+    font-size: 1.2rem;
+}
+
+/* Close button for consultation box */
+.consultation-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--titanium);
+    font-size: 1.5rem;
+    cursor: none;
+    transition: color 0.3s ease;
+}
+
+.consultation-close:hover {
+    color: var(--h2-electric);
+}
+
+/* Notification for consultation */
+.consultation-notification {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    background: var(--warning);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    animation: notificationBounce 2s ease-in-out infinite;
+}
+
+@keyframes notificationBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .consultation-box {
+        width: 300px;
+        right: 15px;
+        bottom: 15px;
+        padding: 1.5rem;
+    }
+    
+    .consultation-title {
+        font-size: 1.2rem;
+    }
+    
+    .hero-stats {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+}

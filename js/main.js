@@ -781,3 +781,169 @@ if (document.readyState === 'loading') {
 } else {
     initializeUniqueFeatures();
 }
+// H2+ CONSULTATION BOX JAVASCRIPT - ADD TO END OF js/main.js
+
+// Enhanced Consultation Box Functionality
+function initConsultationBox() {
+    const consultationBox = document.getElementById('consultationBox');
+    const closeBtn = document.getElementById('closeConsultation');
+    const ctaBtn = document.getElementById('consultationCTA');
+    
+    // Show consultation box after 5 seconds
+    setTimeout(() => {
+        if (consultationBox) {
+            consultationBox.style.opacity = '0';
+            consultationBox.style.transform = 'translateX(100%)';
+            consultationBox.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            
+            setTimeout(() => {
+                consultationBox.style.opacity = '1';
+                consultationBox.style.transform = 'translateX(0)';
+            }, 100);
+        }
+    }, 5000);
+    
+    // Close consultation box
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            consultationBox.style.transform = 'translateX(100%)';
+            consultationBox.style.opacity = '0';
+            
+            setTimeout(() => {
+                consultationBox.style.display = 'none';
+            }, 600);
+        });
+    }
+    
+    // CTA button interaction
+    if (ctaBtn) {
+        ctaBtn.addEventListener('click', function(e) {
+            // Create explosion effect
+            const explosion = document.createElement('div');
+            explosion.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100px;
+                height: 100px;
+                background: radial-gradient(circle, var(--h2-neural) 0%, transparent 70%);
+                border-radius: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                animation: ctaExplosion 0.6s ease-out;
+                pointer-events: none;
+                z-index: 10;
+            `;
+            
+            // Add explosion animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ctaExplosion {
+                    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+                    100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            this.appendChild(explosion);
+            
+            setTimeout(() => {
+                this.removeChild(explosion);
+                document.head.removeChild(style);
+            }, 600);
+            
+            // Show success message
+            showNotification('🚀 Redirecting to consultation form...', 'success');
+        });
+    }
+}
+
+// Enhanced stats animation with new values
+function updateStatsAnimation() {
+    const statNumbers = document.querySelectorAll('[data-target]');
+    
+    statNumbers.forEach(stat => {
+        const target = parseInt(stat.dataset.target);
+        let suffix = '';
+        
+        // Add appropriate suffix
+        if (stat.textContent.includes('%') || stat.closest('.stat-label').textContent.includes('Satisfaction')) {
+            suffix = '%';
+        }
+        
+        // Reset for new animation
+        stat.dataset.animated = 'false';
+        stat.textContent = '0' + suffix;
+    });
+}
+
+// Auto-hide consultation box on scroll
+let lastScrollTop = 0;
+window.addEventListener('scroll', function() {
+    const consultationBox = document.getElementById('consultationBox');
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (consultationBox && consultationBox.style.display !== 'none') {
+        if (scrollTop > lastScrollTop && scrollTop > 200) {
+            // Scrolling down - hide consultation box
+            consultationBox.style.transform = 'translateX(100%) scale(0.8)';
+            consultationBox.style.opacity = '0.3';
+        } else {
+            // Scrolling up - show consultation box
+            consultationBox.style.transform = 'translateX(0) scale(1)';
+            consultationBox.style.opacity = '1';
+        }
+    }
+    lastScrollTop = scrollTop;
+});
+
+// Enhanced hero animations
+function enhanceHeroAnimations() {
+    // Add typing effect to "Better and Faster"
+    const titleLines = document.querySelectorAll('.title-line');
+    
+    titleLines.forEach((line, index) => {
+        const text = line.textContent;
+        line.textContent = '';
+        
+        let charIndex = 0;
+        const typeInterval = setInterval(() => {
+            line.textContent += text[charIndex];
+            charIndex++;
+            
+            if (charIndex >= text.length) {
+                clearInterval(typeInterval);
+            }
+        }, 50 + (index * 30)); // Delay each line
+    });
+}
+
+// Consultation box reminder
+function consultationReminder() {
+    const consultationBox = document.getElementById('consultationBox');
+    
+    // Show reminder every 2 minutes if box is closed
+    setInterval(() => {
+        if (consultationBox && consultationBox.style.display === 'none') {
+            showNotification('💡 Need help with your project? Get free consultation!', 'info');
+        }
+    }, 120000); // 2 minutes
+}
+
+// Initialize all consultation features
+function initConsultationFeatures() {
+    initConsultationBox();
+    updateStatsAnimation();
+    consultationReminder();
+    
+    // Add enhanced typing effect after a delay
+    setTimeout(enhanceHeroAnimations, 2000);
+    
+    console.log('🔥 H2+ Consultation features initialized!');
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initConsultationFeatures);
+} else {
+    initConsultationFeatures();
+}
